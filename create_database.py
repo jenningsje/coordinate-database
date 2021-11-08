@@ -1,26 +1,25 @@
-import prettytable
 import CifFile
+import pandas as pd
+import io
+from pathlib import Path
+import gzip
 
-#obtain the protein data
-cf = CifFile.ReadCif("20gs.cif")
-all_data = cf.first_block()
-atom_data = all_data.GetLoop("_atom_site.group_PDB")
+directory = '/home/james/Desktop/'
+df = pd.DataFrame()
 
-#create a text file for the atom coordinates
-file = open("atom_coordinates.txt", "w")
-xyz_table = prettytable.PrettyTable(["atom", "amino", "X", "Y", "Z"])
+for crystal_file in Path(directory).glob('*.cif.gz'):
 
-#add rows to xyz_table
-for a in atom_data:
-    print(a[11], a[12], a[13])
+    if str(crystal_file) != "posix.DirEntry":
 
-#add rows to xyz_table
-for a in atom_data:
-    xyz_table.add_row([a[2], a[5], a[10], a[11], a[12]])
+        with gzip.open(crystal_file, 'rb') as ip:
+            cf = CifFile.ReadCif(ip)
+            all_data = cf.first_block()
+            atom_data = all_data.GetLoop("_atom_site.group_PDB")
+            df1 = pd.DataFrame.from_dict(atom_data)
+            print(df1)
+            df1.assign(protein_id=[])
+            df = df.append(df1, ignore_index=True)
 
-#print the xyz_table
-print(xyz_table)
-
-#output pretty table to textfile
-with open('atom_coordinates', 'w') as w:
-    w.write(str(xyz_table))
+print(df)
+df.to_csv("df.csv")
+print(df.csv)
