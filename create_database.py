@@ -4,7 +4,7 @@ import io
 from pathlib import Path
 import gzip
 
-directory = '/home/james/Desktop/'
+directory = '/home/james/Desktop/Move_to_Linux/all_mmcifs'
 df = pd.DataFrame()
 
 for crystal_file in Path(directory).glob('*.cif.gz'):
