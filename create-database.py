@@ -1,4 +1,3 @@
-
 import CifFile
 import pandas as pd
 import io
@@ -7,8 +6,14 @@ import gzip
 import sys
 import os
 
-directory = input("Enter the path of your file: ")
+print("this program will loop through a directory containing gzipped files")
+print("and compress the data within the block _atom_site.group_PDB")
+print("in each gzipped file into a single csv file")
+print("within a single csv file")
+
+directory = input("Enter the path of your crystallographic information files: ")
 df = pd.DataFrame()
+
 for crystal_file in Path(directory).glob('*.cif.gz'):
 
     if str(crystal_file) != "posix.DirEntry":
@@ -23,4 +28,11 @@ for crystal_file in Path(directory).glob('*.cif.gz'):
             df = df.append(df1, ignore_index=True)
 
 print(df)
+if df.empty:
+    print("Dataframe is empty")
+    print("this means that either:")
+    print("1: you misspelled in the command prompt")
+    print("2: the directory does not exist")
+    print("3: the files are not crystallographic information files")
+    print("4: your crystallographic information files are empty")
 df.to_csv("df.csv")
