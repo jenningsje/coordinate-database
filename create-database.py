@@ -3,10 +3,11 @@ import pandas as pd
 import io
 from pathlib import Path
 import gzip
+import sys
+import os
 
-directory = '/home/james/Desktop/'
+directory = input("Enter the path of your file: ")
 df = pd.DataFrame()
-
 for crystal_file in Path(directory).glob('*.cif.gz'):
 
     if str(crystal_file) != "posix.DirEntry":
