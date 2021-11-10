@@ -16,7 +16,7 @@ for crystal_file in Path(directory).glob('*.cif.gz'):
             all_data = cf.first_block()
             atom_data = all_data.GetLoop("_atom_site.group_PDB")
             df1 = pd.DataFrame.from_dict(atom_data)
-            df1=df1.assign(protein_id=lambda x : all_data)
+            df1=df1.assign(protein_id=lambda x : all_data['_pdbx_database_status.entry_id'])
             print(df1)
             df = df.append(df1, ignore_index=True)
 
