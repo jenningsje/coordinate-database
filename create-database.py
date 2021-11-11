@@ -12,20 +12,20 @@ directory = '/home/james/Desktop/'
 directory = input("Enter the path of your file: ")
 df = pd.DataFrame()
 
-#description of program-------------------------------------------------------------------------
+#description of program
 print("this program will loop through a directory containing gzipped files")
 print("and compress the data within the block _atom_site.group_PDB")
 print("in each gzipped file into a single csv file")
 print("within a single csv file")
 
-#computer gives user the option of moving all of their cif files--------------------------------
+#computer gives user the option of moving all of their cif files
 #within subdirectories to a single directory of their choice
 print("if your gzipped cif files are all located within a single directory")
 print("it is recommended that you move them to a single directory of your choice?")
 print("would you like to do this? (y/n)")
 x = input()
 
-#begin if else statement for yes or no response-------------------------------------------------
+#begin if else statement for yes or no response
 if x == "yes":
 
     print("please type in the directory containing all of your gizpped files")
@@ -34,7 +34,7 @@ if x == "yes":
 
     files = os.listdir(source)
 
-# begin for loop
+#Step 1 (yes response): move files to a directory of users choice
 for file in files:
 
     file_name = os.path.join(source, file)
@@ -45,6 +45,8 @@ for file in files:
 
     df_a = pd.DataFrame()
 
+#Step 2 (yes reponse): compress crystallographic information data
+#from the '_pdbx_database_status.entry_id' block into a single csv file
 for crystal_file in Path(destination).glob('*.cif.gz'):
 
     if str(crystal_file).endswith('.cif.gz'):
@@ -63,8 +65,9 @@ for crystal_file in Path(destination).glob('*.cif.gz'):
 
             else:
     else:
+#end of code for the yes reponse
 
-# continue if else statement for yes or no reponse
+#begin code for the no response
 else if x == "n":
 
     directory = input("Enter the path of your crystallographic information files: ")
