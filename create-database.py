@@ -3,9 +3,10 @@ from pathlib import Path
 import gzip
 import sys
 import os
+import pandas as pd
+import CifFile
 #this is the original code
-directory = '/home/james/Desktop/'
-directory = input("Enter the path of your file: ")
+directory = '/home/james/Desktop/Move_to_Linux/all_mmcifs/'
 df = pd.DataFrame()
 
 for crystal_file in Path(directory).glob('*.cif.gz'):
