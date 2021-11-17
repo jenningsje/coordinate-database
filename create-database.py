@@ -10,11 +10,8 @@ import shutil
 
 
 #Step 1 (yes response): move files to a directory of users choice
-
-print("please type in the directory containing all of your gizpped files")
-source = input()
-print("please type in the directory you wish to move your gzipped files to")
-destination = input()
+source = input("please type in the directory containing all of your gizpped files")
+destination = input("please type in the directory you wish to move your gzipped files to")
 
 files = os.listdir(source)
 
